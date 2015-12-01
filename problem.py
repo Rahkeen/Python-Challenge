@@ -72,3 +72,109 @@
 # may only use the libraries available on a fresh Python 2.7 install.  I doubt
 # you will need to use any libraries at all as this is just an algorithmic
 # challenge.
+
+##############################################################################
+
+from Queue import Queue
+
+def bfs(matrix, visited, start):
+
+	frontier = Queue()
+	region = 0
+
+	frontier.put(start)
+	visited.add(start)
+
+	while not frontier.empty():
+		node = frontier.get()
+		region += 1 
+
+		# test neighbors
+		x,y = node
+
+		#right
+		if x+1 < rows and matrix[x+1][y] == 1 and (x+1,y) not in visited:
+			neighbor = (x+1,y)
+			frontier.put(neighbor)
+			visited.add(neighbor)
+		#left
+		if x-1 >= 0 and matrix[x-1][y] == 1 and (x-1,y) not in visited:
+			neighbor = (x-1,y)
+			frontier.put(neighbor)
+			visited.add(neighbor)
+		#up
+		if y-1 >= 0 and matrix[x][y-1] == 1 and (x,y-1) not in visited:
+			neighbor = (x,y-1)
+			frontier.put(neighbor)
+			visited.add(neighbor)
+		#down
+		if y+1 < cols and matrix[x][y+1] == 1 and (x,y+1) not in visited:
+			neighbor = (x,y+1)
+			frontier.put(neighbor)
+			visited.add(neighbor)
+		#up_right
+		if (x+1 < rows and y-1 >= 0) and matrix[x+1][y-1] == 1 and (x+1,y-1) not in visited:
+			neighbor = (x+1,y-1)
+			frontier.put(neighbor)
+			visited.add(neighbor)
+		#up_left
+		if (x-1 >= 0 and y-1 >= 0) and matrix[x-1][y-1] == 1 and (x-1,y-1) not in visited:
+			neighbor = (x-1,y-1)
+			frontier.put(neighbor)
+			visited.add(neighbor)
+		#down_right
+		if (x+1 < rows and y+1 < cols) and matrix[x+1][y+1] == 1 and (x+1,y+1) not in visited:
+			neighbor = (x+1,y+1)
+			frontier.put(neighbor)
+			visited.add(neighbor)
+		#down_left
+		if (x-1 >= 0 and y+1 < cols) and matrix[x-1][y+1] == 1 and (x-1,y+1) not in visited:
+			neighbor = (x-1,y+1)
+			frontier.put(neighbor)
+			visited.add(neighbor)
+
+	return region
+
+# - Iterate through elements of the matrix
+# - Find an an element that equals 1 (is part of some region)
+# - If that element has not been visited before, start a BFS
+#	at that point
+# - Keep track of the largest region seen, return it
+
+## read input and generate matrix 
+
+rows = int(raw_input())
+cols = int(raw_input())
+
+matrix = []
+visited = set()
+
+for i in xrange(rows):
+	row = raw_input()
+	row = row.split()
+	row = [int(i) for i in row]
+	matrix.append(row)
+
+## start interating through the matrix elements
+
+max_region = -1
+
+for x in xrange(rows):
+	for y in xrange(cols):
+		if matrix[x][y] == 1 and (x,y) not in visited:
+			# perform bfs
+			max_region = max(max_region, bfs(matrix, visited, (x,y)))
+
+print(max_region)
+
+
+
+
+
+
+
+
+
+
+
+

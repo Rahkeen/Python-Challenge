@@ -19,5 +19,9 @@ for i in range(len(os.listdir('test-cases'))/2):
         print 'Test case %d passed successfully!' % i
     except AssertionError as e:
         print e
+
+# cmd = ['python', test_file]
+# hard_output = check_output(cmd, stdin=open('hard-test-case1000x1000.txt')).strip('\n')
+# print 'Largest region in 1000x1000 ' + str(hard_output)
     
     
