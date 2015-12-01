@@ -77,7 +77,7 @@
 
 from Queue import Queue
 
-def bfs(matrix, visited, start):
+def bfs(start):
 
 	frontier = Queue()
 	region = 0
@@ -162,8 +162,8 @@ max_region = -1
 for x in xrange(rows):
 	for y in xrange(cols):
 		if matrix[x][y] == 1 and (x,y) not in visited:
-			# perform bfs
-			max_region = max(max_region, bfs(matrix, visited, (x,y)))
+			# perform bfs, using (x,y) as start
+			max_region = max(max_region, bfs((x,y)))
 
 print(max_region)
 
